@@ -39,10 +39,10 @@ sig Gravidade_1 in Bug {}
 sig Gravidade_2 in Bug {}
 sig Gravidade_3 in Bug {}
 
-sig TimeCadadorDeBug {
-	verificando: set ProjetoEmAndamento
+--sig TimeCadadorDeBug {
+--	verificando: set ProjetoEmAndamento
 	-- Veifica 1 ou mais Projetos em Andamento
-}
+--}
 
 -- sig RodadaTeste {
 	-- Tem 1 ou mais Bugs
@@ -60,7 +60,7 @@ fact Fatos {
 
 	-- Fatos mais gerais
 	some Cliente
-	one TimeCadadorDeBug -- DEPOIS MUDAR PARA SOME
+--	one TimeCadadorDeBug -- DEPOIS MUDAR PARA SOME
 
 	-- Fatos com relação a Projetos
 	all proj: Projeto | one projetos.proj
@@ -74,7 +74,7 @@ fact Fatos {
 	-- Fatos com relação a Bugs
 	all bug: Bug | one bugs.bug
 	all rela: Relatorio | one relatorio.rela
-	all projAnda: ProjetoEmAndamento | one verificando.projAnda 
+--	all projAnda: ProjetoEmAndamento | one verificando.projAnda 
 	
 }
 
