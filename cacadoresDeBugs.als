@@ -32,23 +32,22 @@ sig Codigo {
 -- Definição de Coisas que Envolvem Bug
 
 sig Bug {
-	-- Tem 1 Gravidade de 1 a 3
 	relatorio: one Relatorio
 }
+
+sig Gravidade_1 in Bug {}
+sig Gravidade_2 in Bug {}
+sig Gravidade_3 in Bug {}
 
 sig TimeCadadorDeBug {
 	verificando: set ProjetoEmAndamento
 	-- Veifica 1 ou mais Projetos em Andamento
 }
 
-sig ProjetoComBug in ProjetoEmAndamento {
-	-- Versão mais recente do código
-}
-
-sig RodadaTeste {
+-- sig RodadaTeste {
 	-- Tem 1 ou mais Bugs
 	-- Para cada bug tem um relatório
-}
+-- }
 
 sig Relatorio {
 	-- Tem 1 Descrição do Bug
@@ -64,11 +63,13 @@ fact Fatos {
 	one TimeCadadorDeBug -- DEPOIS MUDAR PARA SOME
 
 	-- Fatos com relação a Projetos
-	no (Projeto & ProjetoComBug)
 	all proj: Projeto | one projetos.proj
 	all rep: Repositorio | one repositorio.rep
 	all subP: SubPasta | one subpastas.subP
 	all cod: Codigo | one codigo.cod
+	all rep: Repositorio | #rep.subpastas >= 1
+	all projAnda: ProjetoEmAndamento | #projAnda.repositorio.subpastas.codigo.bugs >= 0
+	no proj: (Projeto - ProjetoEmAndamento) | #proj.repositorio.subpastas.codigo.bugs > 0
 		
 	-- Fatos com relação a Bugs
 	all bug: Bug | one bugs.bug
